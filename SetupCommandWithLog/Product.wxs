@@ -20,32 +20,20 @@
     <Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
-
-      <Directory Id="PROGRAMDATA_COMMAND" Name="ProgramData">
-        <Directory Id ="AUTODESK_COMMAND" Name="Autodesk">
-          <Directory Id="REVIT_COMMAND" Name="Revit">
-            <Directory Id="ADDINS_COMMAND" Name="Addins">
-              <Directory Id="VERSION_COMMAND" Name="2019">
-                <Directory Id="INSTALLFOLDER_COMMAND" Name="CommandWithLog"/>
+      <Directory Id="PROGRAMDATA" Name="ProgramData">
+        <Directory Id ="AUTODESK" Name="Autodesk">
+          <Directory Id="REVIT" Name="Revit">
+            <Directory Id="ADDINS" Name="Addins">
+              <Directory Id="VERSION" Name="2019">
+                <Directory Id="COMANDWITHNAME" Name="CommandWithLog"/>
               </Directory>
             </Directory>
           </Directory>
         </Directory>
       </Directory>
-
-      <Directory Id="PROGRAMDATA_ADDIN" Name="ProgramData">
-        <Directory Id ="AUTODESK_ADDIN" Name="Autodesk">
-          <Directory Id="REVIT_ADDIN" Name="Revit">
-            <Directory Id="ADDINS_ADDIN" Name="Addins">
-              <Directory Id="INSTALLFOLDER_ADDIN" Name="2019"/>
-            </Directory>
-          </Directory>
-        </Directory>
-      </Directory>
-
     </Directory>
 
-    <DirectoryRef Id ="INSTALLFOLDER_COMMAND">
+    <DirectoryRef Id ="COMANDWITHNAME">
       <Component Id="COMMAND" Guid="{13EBC945-4A78-4C3A-9B6D-2C3EEBB2116D}">
         <File Id="CommandWithLog.dll" Source="D:\Revit\PlugIn\CommandWithLog\CommandWithLog\bin\Release\CommandWithLog.dll" KeyPath="yes" />
         <CreateFolder />
@@ -60,7 +48,7 @@
       </Component>
     </DirectoryRef>
 
-    <DirectoryRef Id ="INSTALLFOLDER_ADDIN">
+    <DirectoryRef Id ="VERSION">
       <Component Id="ADDIN" Guid="{433B8B5A-5E82-4032-8A00-9EE98A2D9CAE}">
         <File Id="CommandWithLog.addin" Source="D:\Revit\PlugIn\CommandWithLog\CommandWithLog\CommandWithLog.addin" KeyPath="yes"/>
         <CreateFolder />
@@ -74,7 +62,6 @@
       <ComponentRef Id="COMMAND"/>
       <ComponentRef Id="NLOG"/>
       <ComponentRef Id="NLOG_CONFIG"/>
-
       <ComponentRef Id="ADDIN"/>
     </Feature>
 
