@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?define ProductName="RevitCommandWithLog" ?>
+  <?define ProductVersion="1.0.0" ?>
+
+  <Product
+    Id="{D4C1E89A-72A3-4D31-AB35-F4FF4BA44829}"
+    Name="$(var.ProductName)"
+    Language="1033"
+    Version="$(var.ProductVersion)"
+    Manufacturer="A.Egorov"
+    UpgradeCode="{2E168368-DF83-467D-BB9A-1212587CB7AA}">
+
+    <Package
+      InstallerVersion="300"
+      Compressed="yes"
+      InstallScope="perMachine" />
+
+    <Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <Directory Id="PROGRAMDATA_COMMAND" Name="ProgramData">
+        <Directory Id ="AUTODESK_COMMAND" Name="Autodesk">
+          <Directory Id="REVIT_COMMAND" Name="Revit">
+            <Directory Id="ADDINS_COMMAND" Name="Addins">
+              <Directory Id="VERSION_COMMAND" Name="2019">
+                <Directory Id="INSTALLFOLDER_COMMAND" Name="CommandWithLog"/>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="PROGRAMDATA_ADDIN" Name="ProgramData">
+        <Directory Id ="AUTODESK_ADDIN" Name="Autodesk">
+          <Directory Id="REVIT_ADDIN" Name="Revit">
+            <Directory Id="ADDINS_ADDIN" Name="Addins">
+              <Directory Id="INSTALLFOLDER_ADDIN" Name="2019"/>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+    </Directory>
+
+    <DirectoryRef Id ="INSTALLFOLDER_COMMAND">
+      <Component Id="COMMAND" Guid="{13EBC945-4A78-4C3A-9B6D-2C3EEBB2116D}">
+        <File Id="CommandWithLog.dll" Source="D:\Revit\PlugIn\CommandWithLog\CommandWithLog\bin\Release\CommandWithLog.dll" KeyPath="yes" />
+        <CreateFolder />
+      </Component>
+      <Component Id="NLOG" Guid="{D9380D1C-2336-4CE1-965B-767508B663E0}">
+        <File Id="NLog.dll" Source="D:\Revit\PlugIn\CommandWithLog\CommandWithLog\bin\Release\NLog.dll" KeyPath="yes" />
+        <CreateFolder />
+      </Component>
+      <Component Id="NLOG_CONFIG" Guid="{894C6506-1055-4EBA-B323-41292967666A}">
+        <File Id="NLog.config" Source="D:\Revit\PlugIn\CommandWithLog\CommandWithLog\bin\Release\NLog.config" KeyPath="yes" />
+        <CreateFolder />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id ="INSTALLFOLDER_ADDIN">
+      <Component Id="ADDIN" Guid="{433B8B5A-5E82-4032-8A00-9EE98A2D9CAE}">
+        <File Id="CommandWithLog.addin" Source="D:\Revit\PlugIn\CommandWithLog\CommandWithLog\CommandWithLog.addin" KeyPath="yes"/>
+        <CreateFolder />
+      </Component>
+    </DirectoryRef>
+
+    <Feature
+    Id="ProductFeature"
+    Title="$(var.ProductName)"
+    Level="1">
+      <ComponentRef Id="COMMAND"/>
+      <ComponentRef Id="NLOG"/>
+      <ComponentRef Id="NLOG_CONFIG"/>
+
+      <ComponentRef Id="ADDIN"/>
+    </Feature>
+
+  </Product>
+</Wix>
